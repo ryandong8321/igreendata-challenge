@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IAccountService {
 
-    List<Account> getAllAccount(Long userId) throws ServiceException;
+    List<Account> getAllAccount(Long customerId) throws ServiceException;
 
 }

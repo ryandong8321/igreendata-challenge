@@ -46,8 +46,8 @@ public class TransactionControllerTest extends IgreendataChallengeApplicationTes
 
     @Test
     public void testIncorrect() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/account/-1/transaction"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/account/a/transaction"))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
     }

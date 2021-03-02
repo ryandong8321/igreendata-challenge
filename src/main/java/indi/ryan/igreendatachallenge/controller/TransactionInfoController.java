@@ -1,5 +1,7 @@
 package indi.ryan.igreendatachallenge.controller;
 
+import indi.ryan.igreendatachallenge.exception.AppErrorCode;
+import indi.ryan.igreendatachallenge.exception.ControllerException;
 import indi.ryan.igreendatachallenge.exception.ServiceException;
 import indi.ryan.igreendatachallenge.persistence.entity.TransactionInfo;
 import indi.ryan.igreendatachallenge.service.ITransactionService;
@@ -38,7 +40,7 @@ public class TransactionInfoController {
             return ResponseEntity.ok(transactionService.getTransaction(accountId, page == null || page < 1 ? 1 : page));
         } catch (ServiceException ex) {
             log.error("get account information error {} and error code is {}", ex.getMessage(), ex.getErrorCode());
-            return ResponseEntity.status(ex.getHttpStatus()).body(null);
+            throw new ControllerException(AppErrorCode.getResponseStatus(ex.getErrorCode()), ex.getMessage());
         }
     }
 }

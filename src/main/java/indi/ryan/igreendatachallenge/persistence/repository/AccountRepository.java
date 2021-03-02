@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    List<Account> getAccountsByUser_Id(Long userId);
+    List<Account> getAccountsByCustomer_Id(Long customerId);
 
 }

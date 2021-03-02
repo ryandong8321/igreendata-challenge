@@ -23,9 +23,9 @@ public class Account implements Serializable {
     private String bsb;
     private String accountNumber;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "customer_id")
     @JsonIgnore
-    private User user;
+    private Customer customer;
 
     public Long getId() {
         return id;
@@ -59,12 +59,12 @@ public class Account implements Serializable {
         this.accountNumber = accountNumber;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Account implements Serializable {
                 ", accountName='" + accountName + '\'' +
                 ", bsb='" + bsb + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
-                ", user=" + user +
+                ", customer=" + customer +
                 '}';
     }
 }

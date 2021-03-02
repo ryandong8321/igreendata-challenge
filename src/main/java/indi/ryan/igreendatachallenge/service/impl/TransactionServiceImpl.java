@@ -24,7 +24,7 @@ public class TransactionServiceImpl implements ITransactionService {
     @Override
     public List<TransactionInfo> getTransaction(Long accountId, int page) throws ServiceException {
         if (accountId == null || accountId <= 0) {
-            throw new ServiceException(AppErrorCode.MISSING_PARAM, "account id is invalid", HttpStatus.NOT_FOUND);
+            throw new ServiceException(AppErrorCode.MISSING_PARAM, "account id is invalid");
         }
         Page<TransactionInfo> transactionInfoPage =
                 transactionRepository.findTransactionInfosByAccountDetail_Id(accountId, PageRequest.of(--page,

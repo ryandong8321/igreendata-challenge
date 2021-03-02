@@ -11,22 +11,22 @@ import java.io.Serializable;
 import java.util.List;
 
 
-@Table(name = "user_info")
+@Table(name = "customer_info")
 @Entity
-public class User implements Serializable {
+public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Account> accountList;
 
-    public User() {
+    public Customer() {
 
     }
 
-    public User(Long id) {
+    public Customer(Long id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

@@ -6,7 +6,6 @@ import indi.ryan.igreendatachallenge.persistence.entity.Account;
 import indi.ryan.igreendatachallenge.persistence.repository.AccountRepository;
 import indi.ryan.igreendatachallenge.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +17,14 @@ public class AccountServiceImpl implements IAccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public List<Account> getAllAccount(Long userId) throws ServiceException {
-        if (userId == null || userId <= 0) {
-            throw new ServiceException(AppErrorCode.ILLEGAL_PARAM, "user id is invalid", HttpStatus.NOT_FOUND);
+    public List<Account> getAllAccount(Long customerId) throws ServiceException {
+        if (customerId == null || customerId <= 0) {
+            throw new ServiceException(AppErrorCode.ILLEGAL_PARAM, "customer id is invalid");
         }
-        return accountRepository.getAccountsByUser_Id(userId);
+        List<Account> result = accountRepository.getAccountsByCustomer_Id(customerId);
+        if (result == null || result.isEmpty()) {
+            throw new ServiceException(AppErrorCode.CANNOT_FINE_RESULT, "cannot find account information");
+        }
+        return result;
     }
 }

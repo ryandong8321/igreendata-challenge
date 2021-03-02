@@ -1,11 +1,14 @@
 package indi.ryan.igreendatachallenge.service;
 
+import indi.ryan.igreendatachallenge.exception.AppErrorCode;
+import indi.ryan.igreendatachallenge.exception.ServiceException;
 import indi.ryan.igreendatachallenge.persistence.entity.Account;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -28,7 +31,10 @@ public class AccoutServiceTest {
 
     @Test
     public void testIncorrect() {
-        List<Account> accountList = accountService.getAllAccount(-3l);
-        Assert.assertEquals(1, accountList.size());
+        try {
+            accountService.getAllAccount(-3l);
+        }catch (ServiceException ex) {
+            Assert.assertEquals(HttpStatus.NOT_FOUND, AppErrorCode.getResponseStatus(ex.getErrorCode()));
+        }
     }
 }

@@ -1,11 +1,15 @@
 package indi.ryan.igreendatachallenge.controller;
 
 import indi.ryan.igreendatachallenge.IgreendataChallengeApplicationTests;
+import indi.ryan.igreendatachallenge.exception.AppErrorCode;
+import indi.ryan.igreendatachallenge.exception.ControllerException;
+import indi.ryan.igreendatachallenge.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,7 +31,7 @@ public class AccountControllerTest extends IgreendataChallengeApplicationTests {
 
     @Test
     public void testEnable() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/user/1/account"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer/1/account"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
@@ -35,7 +39,7 @@ public class AccountControllerTest extends IgreendataChallengeApplicationTests {
 
     @Test
     public void testCorrect() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/user/3/account"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer/3/account"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
@@ -46,8 +50,8 @@ public class AccountControllerTest extends IgreendataChallengeApplicationTests {
 
     @Test
     public void testIncorrect() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/user/-1/account"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/customer/a10/account"))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
     }
